@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int N,M,K,ans;cin>>N>>M>>K;
+	if(M<=(N-K+1)) ans=N-K+1;
+	else{
+	    M=(M-(N-K+1));
+	    if(M%N==0) ans=N;
+	    else ans=M%N;
+	}
+	cout<<ans;
+	return 0;
+}
