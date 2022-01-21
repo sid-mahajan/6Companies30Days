@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int total_orange=0;
+        if(grid.empty()) return 0;
+        int n=grid.size();
+        int m=grid[0].size();queue<pair<int,int>>q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]!=0) total_orange++;
+                if(grid[i][j]==2) q.push({i,j});
+            }
+        }
+        int rotten_oranges=0;
+        int px[4]={0,0,1,-1};
+        int py[4]={1,-1,0,0};
+        int minutes=0;
+        while(!q.empty()){
+            rotten_oranges+=q.size();
+            int t=q.size();
+            while(t--){
+                pair<int,int>p=q.front();
+                q.pop();
+                for(int i=0;i<4;i++){
+                    int x=p.first+px[i];
+                    int y=p.second+py[i];
+                    
+                    if(x<0||y<0||x>=n||y>=m||grid[x][y]!=1) continue;
+                    grid[x][y]=2;
+                    q.push({x,y});
+                }
+            }
+            if(!q.empty()) minutes++;
+        }
+        return total_orange==rotten_oranges?minutes:-1;
+    }
+};

@@ -1,0 +1,49 @@
+// { Driver Code Starts
+// Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int maxProfit(int K, int N, int A[]) {
+        // code here
+        int profit[K+1][N+1],curr_profit;
+        for(int i=0;i<=N;i++){
+            profit[0][i]=0;
+        }
+        for(int i=0;i<=K;i++){
+            profit[i][0]=0;
+        }
+        for(int i=1;i<=K;i++){
+            for(int j=1;j<N;j++){
+                curr_profit=-1;
+                for(int m=0;m<j;m++){
+                    curr_profit=max(curr_profit,A[j]-A[m]+profit[i-1][m]);
+                }
+                profit[i][j]=max(profit[i][j-1],curr_profit);
+            }
+        }
+        return profit[K][N-1];
+    }
+};
+
+// { Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N, K;
+        cin >> K;
+        cin >> N;
+        int A[N];
+        for (int i = 0; i < N; i++) cin >> A[i];
+
+        Solution ob;
+        cout << ob.maxProfit(K, N, A) << endl;
+    }
+    return 0;
+}  // } Driver Code Ends
